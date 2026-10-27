@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halcyon Outbreak</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="ui">
+      <div id="labels"></div>
+
+      <div id="top-left" class="panel hidden">
+        <div class="mission">OPERATION PALE DAWN</div>
+        <div id="objective"></div>
+        <div id="turn"></div>
+      </div>
+
+      <div id="enemy-list" class="hidden"></div>
+
+      <div id="roster" class="hidden"></div>
+
+      <div id="unit-panel" class="panel hidden">
+        <div class="up-head">
+          <div><span id="up-name"></span> <span id="up-role"></span></div>
+          <div id="up-status"></div>
+        </div>
+        <div class="bars">
+          <div class="bar-label">HP</div>
+          <div class="bar"><div id="up-hp" class="fill hp"></div><span id="up-hp-t"></span></div>
+          <div class="bar-label">AP</div>
+          <div id="up-ap" class="pips"></div>
+        </div>
+        <div id="up-parts"></div>
+        <div id="up-weapon"></div>
+        <div id="actions"></div>
+      </div>
+
+      <div id="log"></div>
+      <div id="banner"><div id="banner-t"></div><div id="banner-s"></div></div>
+      <div id="tooltip" class="hidden"></div>
+      <div id="hint" class="hidden"></div>
+
+      <svg id="reticle" class="hidden">
+        <circle id="ret-outer" fill="none" stroke-width="1.5" />
+        <circle id="ret-inner" fill="none" stroke-width="1.5" stroke-dasharray="4 3" />
+        <line id="ret-h1" /><line id="ret-h2" /><line id="ret-v1" /><line id="ret-v2" />
+        <circle id="ret-dot" r="1.6" />
+      </svg>
+      <div id="aim-info" class="panel hidden"></div>
+
+      <div id="title" class="screen">
+        <div class="title-wrap">
+          <div class="kicker">HALCYON BIOTECH · ASHFORD HOLLOW RESEARCH ANNEX</div>
+          <h1>HALCYON<br /><span>OUTBREAK</span></h1>
+          <div class="brief">
+            <p>04:10. All contact with the Ashford Hollow annex was lost nine hours ago. Something got out.</p>
+            <p>Lantern Team is on the ground. Retrieve the <b>V-7 sample case</b> from the north-east lab and carry it to the <b>extraction pad</b> in the west yard. Ammunition is scarce. The dead don't always stay down — <b>aim for the head</b>.</p>
+          </div>
+          <div class="controls">
+            <div><b>LMB</b> select / move / target</div>
+            <div><b>WASD</b> pan · <b>Q/E</b> rotate · <b>Wheel</b> zoom</div>
+            <div><b>1</b> aim · <b>2</b> swap · <b>3</b> reload · <b>4</b> grenade · <b>5</b> medkit · <b>6</b> overwatch</div>
+            <div><b>Tab</b> next soldier · <b>Enter</b> end turn</div>
+            <div class="sub">Aiming: shots are simulated as real projectiles inside the reticle cone. Inner circle ≈ 50% of shots. Cover physically blocks rounds.</div>
+          </div>
+          <button id="start-btn">BEGIN OPERATION</button>
+        </div>
+      </div>
+
+      <div id="end" class="screen hidden">
+        <div class="title-wrap">
+          <h1 id="end-title"></h1>
+          <div id="end-body" class="brief"></div>
+          <button id="restart-btn">PLAY AGAIN</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
