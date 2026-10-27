@@ -236,7 +236,6 @@ export class Game {
         if (this.mode === 'aim') {
           this.aimYaw -= dx * 0.0035;
           this.aimPitch = THREE.MathUtils.clamp(this.aimPitch - dy * 0.0035, -1.1, 0.9);
-          this.aimAnchor.x += 0; // view rotates, reticle offset is kept
         } else {
           this.rig.goalYaw -= dx * 0.006;
           this.rig.pitch = THREE.MathUtils.clamp(this.rig.pitch + dy * 0.004, 0.45, 1.4);
@@ -708,8 +707,9 @@ export class Game {
     this.aimTarget = target || targets[0] || null;
     this.lookAtTarget(this.aimTarget);
     this.rig.setMode('aim');
+    this.renderer.domElement.style.cursor = 'none'; // the reticle replaces the pointer
     this.simT = 0;
-    this.ui.hint('<b>LMB/Space</b> fire · <b>Mouse</b> fine-aim · <b>RMB-drag</b> / <b>WASD</b> turn · <b>Wheel</b> zoom · <b>Tab</b> next target · <b>Esc</b> cancel');
+    this.ui.hint('<b>LMB/Space</b> fire · <b>Mouse</b> aim · <b>RMB-drag</b> / <b>WASD</b> turn · <b>Wheel</b> zoom · <b>Tab</b> next target · <b>Esc</b> cancel');
     this.ui.unitPanel(u, 'aim', u.weapon.def.tu);
     this.ui.show('roster', false);
   }
@@ -717,7 +717,6 @@ export class Game {
   lookAtTarget(t) {
     const u = this.selected;
     const e = u.eye();
-    this.aimAnchor = { ...this.mousePx };
     if (t) {
       const p = t.aimPoint(t.state === 'down' ? 'head' : 'torso');
       this.aimYaw = Math.atan2(p.x - e.x, p.z - e.z);
@@ -742,6 +741,7 @@ export class Game {
   exitAim() {
     this.mode = 'idle';
     this.rig.setMode('tactical');
+    this.renderer.domElement.style.cursor = '';
     this.ui.reticle(false);
     this.ui.hint(null);
     if (this.phase !== 'title') this.ui.show('roster', true);
@@ -779,8 +779,7 @@ export class Game {
     if (this.busy) return;
 
     const w = window.innerWidth, h = window.innerHeight;
-    const sx = THREE.MathUtils.clamp(w / 2 + (this.mousePx.x - this.aimAnchor.x), 0, w);
-    const sy = THREE.MathUtils.clamp(h / 2 + (this.mousePx.y - this.aimAnchor.y), 0, h);
+    const sx = this.mousePx.x, sy = this.mousePx.y;
     const { o, d } = this.pickRay(new THREE.Vector2((sx / w) * 2 - 1, -(sy / h) * 2 + 1));
     this.world.refreshHitboxes();
     const hit = this.world.trace(o, d, 200, { ignore: u });

@@ -19,7 +19,7 @@ Lead Lantern Team (4 operatives) to grab the **V-7 sample case** in the north-ea
 | WASD / arrows, Q/E, wheel, RMB-drag | pan, rotate 60°, zoom, orbit |
 | 1–6 | aim · swap weapon · reload · grenade · medkit · overwatch |
 | Tab / Enter | next soldier / end turn |
-| Aim mode | mouse fine-aims, RMB-drag or WASD turns, wheel zooms, Tab cycles targets, LMB/Space fires, Esc cancels |
+| Aim mode | the reticle follows the mouse, RMB-drag or WASD turns, wheel zooms, Tab cycles targets, LMB/Space fires, Esc cancels |
 
 ## Systems
 - **Hex grid**: pointy-top axial coordinates (`src/hex.js`), Dijkstra move ranges and A* enemy pathing (`src/world.js`).
